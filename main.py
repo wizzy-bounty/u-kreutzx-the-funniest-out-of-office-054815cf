@@ -11,6 +11,8 @@ import os
 
 LINE = "I'm hiding from my inbox in a cabin with no Wi-Fi until Thursday. If you're reading this, the cabin has betrayed me."
 
+MAX_ENTRY_CHARS = 140
+
 
 def _write(path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -19,6 +21,8 @@ def _write(path):
 
 
 def main():
+    if len(LINE) > MAX_ENTRY_CHARS:
+        raise ValueError("entry exceeds %d chars" % MAX_ENTRY_CHARS)
     _write("/output/entry.txt")
     here = os.path.dirname(os.path.abspath(__file__))
     _write(os.path.join(here, "output", "entry.txt"))
